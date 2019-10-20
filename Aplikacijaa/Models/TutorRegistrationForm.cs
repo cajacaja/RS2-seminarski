@@ -12,15 +12,15 @@ namespace Aplikacijaa.Models
         public string FName { get; set; }
         public string LName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public DateTime DateAdded { get; set; }
-        public byte[] ProfilePicture { get; set; }
+       
+        public string ProfilePicture { get; set; }
         public string CollageName { get; set; }
-        public byte[] Proof { get; set; }
+        
         public decimal Price { get; set; }
 
-        public string Username { get; set; }
-        public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
+        public int ProfileInfoId { get; set; }
+        public ProfileInfo ProfileInfo { get; set; }
+
 
         public int TitleId { get; set; }
         public Title Title { get; set; }
@@ -37,5 +37,8 @@ namespace Aplikacijaa.Models
 
         public int GenderId { get; set; }
         public Gender Gender { get; set; }
+
+        public bool IsRead { get; set; }
+        public bool IsAceppted { get; set; }
     }
 }

@@ -16,7 +16,21 @@ namespace Aplikacijaa.ContextFolder
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);          
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ReportedTeacher>()
+                .HasOne(x =>x.RepTeacher)
+                .WithMany().HasForeignKey(x => x.TeacherId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ReportedStudent>()
+               .HasOne(x => x.Teacher)
+               .WithMany().HasForeignKey(x => x.TeacherId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ClassRequest>()
+              .HasOne(x => x.Teacher)
+              .WithMany().HasForeignKey(x => x.TeacherId)
+              .OnDelete(DeleteBehavior.Restrict);
 
         }
 
@@ -33,7 +47,14 @@ namespace Aplikacijaa.ContextFolder
         public DbSet<Field> Field { get; set; }
         public DbSet<ReportedStudent> ReportedStudent { get; set; }
         public DbSet<ReportedTeacher> ReportedTeacher { get; set; }
-
+        public DbSet<AdministrastorRole> AdministrastorRole { get; set; }
+        public DbSet<Administrator> Administrator { get; set; }
+        public DbSet<ClassRequest> ClassRequest { get; set; }
+        public DbSet<LandLord> LandLord { get; set; }
+        public DbSet<ListOfStudents> ListOfStudents { get; set; }
+        public DbSet<TutorRegistrationForm> TutorRegistrationForm { get; set; }
+        public DbSet<TypeOfClass> TypeOfClass { get; set; }
+        public DbSet<Proof> Proof { get; set; }
 
 
 

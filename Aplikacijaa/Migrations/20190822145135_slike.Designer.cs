@@ -4,14 +4,16 @@ using Aplikacijaa.ContextFolder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aplikacijaa.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20190822145135_slike")]
+    partial class slike
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,11 +251,7 @@ namespace Aplikacijaa.Migrations
 
                     b.Property<string>("PictureName");
 
-                    b.Property<int>("TutorRegistrationFormId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TutorRegistrationFormId");
 
                     b.ToTable("Proof");
                 });
@@ -391,13 +389,53 @@ namespace Aplikacijaa.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CityId");
+
+                    b.Property<string>("CollageName");
+
+                    b.Property<int>("ContactInfoId");
+
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<int>("TutorRegistrationFormId");
+                    b.Property<DateTime>("DateOfBirth");
+
+                    b.Property<string>("FName");
+
+                    b.Property<int>("GenderId");
+
+                    b.Property<string>("LName");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("ProfileInfoId");
+
+                    b.Property<string>("ProfilePicture");
+
+                    b.Property<int>("ProofId");
+
+                    b.Property<int>("SubjectId");
+
+                    b.Property<int>("TitleId");
+
+                    b.Property<int>("UserStatusId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TutorRegistrationFormId");
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("ContactInfoId");
+
+                    b.HasIndex("GenderId");
+
+                    b.HasIndex("ProfileInfoId");
+
+                    b.HasIndex("ProofId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("TitleId");
+
+                    b.HasIndex("UserStatusId");
 
                     b.ToTable("Teacher");
                 });
@@ -427,27 +465,31 @@ namespace Aplikacijaa.Migrations
 
                     b.Property<int>("ContactInfoId");
 
+                    b.Property<DateTime>("DateAdded");
+
                     b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("FName");
 
                     b.Property<int>("GenderId");
 
-                    b.Property<bool>("IsAceppted");
-
-                    b.Property<bool>("IsRead");
-
                     b.Property<string>("LName");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PasswordSalt");
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int>("ProfileInfoId");
+                    b.Property<byte[]>("ProfilePicture");
 
-                    b.Property<string>("ProfilePicture");
+                    b.Property<byte[]>("Proof");
 
                     b.Property<int>("SubjectId");
 
                     b.Property<int>("TitleId");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 
@@ -456,8 +498,6 @@ namespace Aplikacijaa.Migrations
                     b.HasIndex("ContactInfoId");
 
                     b.HasIndex("GenderId");
-
-                    b.HasIndex("ProfileInfoId");
 
                     b.HasIndex("SubjectId");
 
@@ -576,14 +616,6 @@ namespace Aplikacijaa.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Aplikacijaa.Models.Proof", b =>
-                {
-                    b.HasOne("Aplikacijaa.Models.TutorRegistrationForm", "TutorRegistrationForm")
-                        .WithMany()
-                        .HasForeignKey("TutorRegistrationFormId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Aplikacijaa.Models.ReportedStudent", b =>
                 {
                     b.HasOne("Aplikacijaa.Models.Student", "RepStudent")
@@ -651,14 +683,6 @@ namespace Aplikacijaa.Migrations
 
             modelBuilder.Entity("Aplikacijaa.Models.Teacher", b =>
                 {
-                    b.HasOne("Aplikacijaa.Models.TutorRegistrationForm", "TutorRegistrationForm")
-                        .WithMany()
-                        .HasForeignKey("TutorRegistrationFormId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Aplikacijaa.Models.TutorRegistrationForm", b =>
-                {
                     b.HasOne("Aplikacijaa.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
@@ -677,6 +701,44 @@ namespace Aplikacijaa.Migrations
                     b.HasOne("Aplikacijaa.Models.ProfileInfo", "ProfileInfo")
                         .WithMany()
                         .HasForeignKey("ProfileInfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aplikacijaa.Models.Proof", "Proof")
+                        .WithMany()
+                        .HasForeignKey("ProofId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aplikacijaa.Models.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aplikacijaa.Models.Title", "Title")
+                        .WithMany()
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aplikacijaa.Models.UserStatus", "UserStatus")
+                        .WithMany()
+                        .HasForeignKey("UserStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Aplikacijaa.Models.TutorRegistrationForm", b =>
+                {
+                    b.HasOne("Aplikacijaa.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aplikacijaa.Models.ContactInfo", "ContactInfo")
+                        .WithMany()
+                        .HasForeignKey("ContactInfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Aplikacijaa.Models.Gender", "Gender")
+                        .WithMany()
+                        .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Aplikacijaa.Models.Subject", "Subject")
