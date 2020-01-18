@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Aplikacijaa.ViewModels
 {
-    public class AdministratorVM
-    {
-        public int Id { get; set; }
+    public class AdministratorVM    {
+       
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateAdded { get; set; }
 
         #region Contactinfo
         public string Email { get; set; }
@@ -23,8 +21,7 @@ namespace Aplikacijaa.ViewModels
 
         #region ProfileInfo
         public string Username { get; set; }
-        public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
+        public string Password { get; set; }
         #endregion
 
         public int CityId { get; set; }

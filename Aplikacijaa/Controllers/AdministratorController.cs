@@ -7,6 +7,7 @@ using Aplikacijaa.Helper;
 using Aplikacijaa.Models;
 using Aplikacijaa.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Aplikacijaa.Controllers
 {
@@ -20,19 +21,46 @@ namespace Aplikacijaa.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var administrator = new AdministratorVM()
+            {
+                Citys =CityFiller(),
+                AdministrastorRoleList = AdministratorRoleFiller()
+            };
+
+            return View(administrator);
         }
 
-        [HttpPost]
-        public IActionResult AddAdministrator() 
+        [HttpGet]
+        public IActionResult AddAdministrator()
         {
-            var administrator = new AdministratorVM() 
+            var administrator = new AdministratorVM()
             {
-                Citys = HelperClass.GetInstance(db).CityFiller(),
-                AdministrastorRoleList=HelperClass.GetInstance(db).AdministratorRoleFiller()
-        };
-           
+                Citys = CityFiller(),
+                AdministrastorRoleList = AdministratorRoleFiller()
+            };
+
             return View(administrator);
+        }
+
+        public List<SelectListItem> CityFiller()
+        {
+            var listofCitys = db.City.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).ToList();
+            return listofCitys;
+        }
+
+        public List<SelectListItem> AdministratorRoleFiller()
+        {
+
+            var listofRoles = db.AdministrastorRole.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).ToList();
+            return listofRoles;
         }
     }
 }

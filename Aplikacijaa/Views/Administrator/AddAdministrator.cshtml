@@ -1,0 +1,108 @@
+﻿@model AdministratorVM
+@{
+
+}
+
+<h2>TeacherRegistration</h2>
+<style>
+    .row {
+        margin-top:25px;
+    }
+    .btn {
+        width:100%;
+        font-weight:bold;
+    }
+</style>
+
+<form asp-action="SaveTeacherRegistration" method="post" enctype="multipart/form-data">
+    <div class="container">
+
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <h4 class="text-info">Informacije o korisniku</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="FirstName">Ime</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="LastName">Prezime</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="Citys">Grad</label>
+                <select asp-for="CityId" asp-items="@Model.Citys" class="form-control">
+                    <option>Odaberite spol</option>
+                </select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Address">Adresa</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Phone">Telefon</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-6">
+                <label asp-for="AdministrastorRoleList">Uloga administratora:</label>
+                <select asp-for="AdministrastorRoleId" asp-items="@Model.AdministrastorRoleList" class="form-control">
+                    <option>Odaberite ulogu</option>
+                </select>
+            </div>
+        </div>
+        <br />
+        
+            <div class="row">
+                <div class="col-md-offset-2 col-md-6">
+                    <button type="submit" class="btn btn-default"> Prijavi se</button>
+                </div>
+            </div>
+        
+    </div>
+
+
+
+</form>
+

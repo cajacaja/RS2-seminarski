@@ -24,25 +24,8 @@ namespace Aplikacijaa.Helper
             return obj;
         }
 
-        public  List<SelectListItem> CityFiller() 
-        {
-           var listofCitys = db.City.Select(x => new SelectListItem
-            {
-               Value=x.Id.ToString(),
-               Text=x.Name
-            }).ToList();
-            return listofCitys;
-        }
+       
 
-        public List<SelectListItem> AdministratorRoleFiller()
-        {
-            
-            var listofRoles = db.AdministrastorRole.Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.Name
-            }).ToList();
-            return listofRoles;
-        }
+        
     }
 }
