@@ -1,0 +1,50 @@
+﻿body {
+}
+
+
+
+
+
+
+
+.site-header {   
+    background:linear-gradient(#0080FF,#1034A6);
+    background-position: center bottom;
+    height:500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:inherit;
+}
+.signupButton {
+    background: linear-gradient(to right,#F64C72,orange);
+    border-width:0;
+    height:45px;
+    border-radius: 5px;
+    margin-right:50px;
+    color:white;
+    font-weight:bold;
+
+}
+.loginButton {
+    background-color: transparent;
+    border-width: 1.5px;
+    border-color: #F64C72;
+    border-radius: 5px;
+    color: #F64C72;
+    
+    font-weight: normal;
+}
+
+    .loginButton:hover {
+        color: white;
+    }
+
+#page-carousel {
+    width:50vw;
+    height:40vh;   
+    position:absolute;
+    margin-top:20vh;
+    margin-left:25vw;
+    z-index:1;
+}
+

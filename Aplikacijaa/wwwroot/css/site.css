@@ -14,6 +14,10 @@ body {
 
 }
 
+.navbar {
+    background:linear-gradient(#2F2FA2,#242582);
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
