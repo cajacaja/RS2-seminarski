@@ -27,63 +27,12 @@ namespace Aplikacijaa.Controllers
         }
         public IActionResult Index()
         {
-
-
             return View();
         }
 
-        public IActionResult StudentRegistration()
-        {
-            var studentReg = new StudentViewModel();
-            return View(model: ListsInput(studentReg));
-        }
+        
 
-        [HttpPost]
-        public IActionResult SaveRegistration(StudentViewModel model)
-        {
-
-            if (!ModelState.IsValid)
-            {
-                return View("StudentRegistration", ListsInput(model));
-            }
-
-            var contact = new ContactInfo()
-            {
-                Email=model.Email,
-                Phone=model.PhoneNummber,
-                Address=model.Address
-            };
-            db.Contact.Add(contact);
-            db.SaveChanges();
-
-            var profileInfo = new ProfileInfo()
-            {
-                Username = model.Username,
-                PasswordSalt = PasswordHashAndSalt.GenerateSalt()
-            };
-            profileInfo.PasswordHash = PasswordHashAndSalt.GenerateHash(profileInfo.PasswordSalt, model.Password);
-            db.ProfileInfo.Add(profileInfo);
-            db.SaveChanges();
-
-            var newStudent = new Student()
-            {
-                FName=model.FName,
-                LName=model.LName,
-                DateOfBirth=model.DateOfBirth,
-                DateAdded=DateTime.Today,
-                ContactId=contact.Id,
-                CityId=model.CityId,
-                StudentTypeId=model.StudentTypeId,
-                StatusId=1,
-                GenderId=model.GenderId,
-                ProfileInfoId=profileInfo.Id
-            };
-
-            db.Student.Add(newStudent);
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
+       
 
 
         public IActionResult LandLordRegistration()
