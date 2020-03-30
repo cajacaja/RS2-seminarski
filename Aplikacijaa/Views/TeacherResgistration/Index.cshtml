@@ -1,0 +1,37 @@
+﻿@model List<ListOfTeachersVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Ime</td>
+            <td>Prezime</td>
+            <td>Datum rodjenja</td>
+            <td>Spol</td>
+            <td>Grad</td>
+            <td>Titula</td>
+            <td>Predmet</td>
+            @*<td>Akcije</td>*@
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.BirthDay</td>
+                <td>@item.Gender</td>
+                <td>@item.City</td>
+                <td>@item.Title</td>
+                <td>@item.Subject</td>
+
+        </tr>
+    }
+
+    </tbody>
+</table>

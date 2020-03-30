@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Aplikacijaa.ContextFolder;
@@ -16,18 +17,24 @@ namespace Aplikacijaa.Controllers
 
         // Moras napravit Viewve za ovaj kontroler
         private readonly MyContext db;
+
+        public StudentController(MyContext context)
+        {
+            db = context;
+
+        }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult AddStudent() 
+        public IActionResult AddStudent()
         {
             var studentReg = new StudentViewModel();
             return View(model: ListsInput(studentReg));
         }
         [HttpPost]
-        public IActionResult SaveStudent(StudentViewModel model) 
+        public IActionResult SaveStudent(StudentViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -78,24 +85,24 @@ namespace Aplikacijaa.Controllers
             if (student == null)
                 return NotFound();
             var studentContactInfo = db.Contact.FirstOrDefault(x => x.Id == student.ContactId);
-            var profileInfo = db.ProfileInfo.FirstOrDefault(x=>x.Id==student.ProfileInfoId);
+            var profileInfo = db.ProfileInfo.FirstOrDefault(x => x.Id == student.ProfileInfoId);
 
             //Password ce bit empty pa ako ostane empty nista se ne mjenja
             var studentVM = new StudentViewModel()
             {
                 StudentId = student.Id,//readonly
-                FName =student.FName,//readonly
-                LName=student.LName,//readonly
-                DateOfBirth =student.DateOfBirth,//readonly
-                DateAdded =student.DateAdded,//readonly
-                Email =studentContactInfo.Email,
-                Address=studentContactInfo.Address,
-                PhoneNummber=studentContactInfo.Phone,
-                CityId=student.CityId,
-                Username=profileInfo.Username,
-                ProfilePicture=student.ProfilePicture,
-                StudentTypeId=student.StudentTypeId
-                
+                FName = student.FName,//readonly
+                LName = student.LName,//readonly
+                DateOfBirth = student.DateOfBirth,//readonly
+                DateAdded = student.DateAdded,//readonly
+                Email = studentContactInfo.Email,
+                Address = studentContactInfo.Address,
+                PhoneNummber = studentContactInfo.Phone,
+                CityId = student.CityId,
+                Username = profileInfo.Username,
+                ProfilePicture = student.ProfilePicture,
+                StudentTypeId = student.StudentTypeId
+
             };
             studentVM = ListsInput(studentVM);
 
@@ -105,48 +112,47 @@ namespace Aplikacijaa.Controllers
         public IActionResult UpdateStudent(StudentViewModel model)
         {
             //Treba validacija za Email i telefon, za addrtesu ne treba jer neki useri mogu da dijele adresu
-            var contactInfo = new ContactInfo()
-            {
-                Email = model.Email,
-                Phone = model.PhoneNummber,
-                Address = model.Address
-            };
+
+
+            var editedStudent = db.Student.FirstOrDefault(x => x.Id == model.StudentId);
+            var contactInfo = db.Contact.FirstOrDefault(x => x.Id == editedStudent.ContactId);
+            var profileInfo = db.ProfileInfo.FirstOrDefault(x => x.Id == editedStudent.ProfileInfoId);
+
+            contactInfo.Email = model.Email;
+            contactInfo.Phone = model.PhoneNummber;
+            contactInfo.Address = model.Address;
+
 
             db.Contact.Update(contactInfo);
             db.SaveChanges();
-            var profileInfo = new ProfileInfo()
-            {
-                Username = model.Username
-            };
-
+            
+            profileInfo.Username = model.Username;
             if (!String.IsNullOrEmpty(model.Password))
             {
                 profileInfo.PasswordSalt = PasswordHashAndSalt.GenerateSalt();
                 profileInfo.PasswordHash = PasswordHashAndSalt.GenerateHash(profileInfo.PasswordSalt, model.Password);
             }
 
-            db.ProfileInfo.Update(profileInfo);
+            db.Update(profileInfo); 
             db.SaveChanges();
 
-            var editedStudent = new Student()
-            {
-                FName = model.FName,//readonly
-                LName = model.LName,//readonly
-                DateOfBirth = model.DateOfBirth,//readonly
-                DateAdded = model.DateAdded,//readonly
-                ContactId=contactInfo.Id,
-                ProfileInfoId=profileInfo.Id,
-                CityId = model.CityId,
-                StudentTypeId=model.StudentTypeId,
-                ProfilePicture = model.ProfilePicture,//ako su isti biti ko vec nemjenjaj nista ako nisu onda mjenjaj treba dodat isto treba kompresovat sliku
-                
-            };
+            editedStudent.FName = model.FName;//readonly
+            editedStudent.LName = model.LName;//readonly
+            editedStudent.DateOfBirth = model.DateOfBirth;//readonly
+            editedStudent.DateAdded = model.DateAdded;//readonly
+            editedStudent.ContactId = contactInfo.Id;
+            editedStudent.ProfileInfoId = profileInfo.Id;
+            editedStudent.CityId = model.CityId;
+            editedStudent.StudentTypeId = model.StudentTypeId;
+            editedStudent.ProfilePicture = model.ProfilePicture;//ako su isti biti ko vec nemjenjaj nista ako nisu onda mjenjaj treba dodat isto treba kompresovat sliku
 
-            db.Student.Update(editedStudent);
+
+
+            db.Update(editedStudent);
             db.SaveChanges();
 
             //Redirekcija se treba stavit 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         //Moze se dodat mod za aktivnost usera to jest da stavi da li je aktivan ili ne ili to se moze stavit samo za tutore

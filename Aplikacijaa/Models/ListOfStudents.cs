@@ -9,8 +9,8 @@ namespace Aplikacijaa.Models
     {
         public int Id { get; set; }
 
-        public int TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
+        public int TutorRegistrationFormId { get; set; }
+        public TutorRegistrationForm TutorRegistrationForm { get; set; }
 
         public int StudentTypeId { get; set; }
         public StudentType StudentType { get; set; }

@@ -1,0 +1,105 @@
+﻿@model StudentViewModel
+@{
+    ViewData["Title"] = "EditStudent";
+}
+
+<h2>Ovo je novi update studenta</h2>
+<form asp-action="UpdateStudent" method="post">
+    <div class="container">
+
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <h4 class="text-info">Informacije o korisniku</h4>
+            </div>
+        </div>
+        <input asp-for="StudentId" class="form-control" value="@Model.StudentId" readonly hidden />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="FName">Ime</label>
+                <input asp-for="FName" class="form-control" value="@Model.FName" readonly />
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="LName">Prezime</label>
+                <input asp-for="LName" class="form-control" value="@Model.LName" readonly />
+            </div>
+
+
+            <div class="col-md-3">
+                <label asp-for="DateOfBirth">Datum rodjenja</label>
+                @Html.TextBoxFor(model => model.DateOfBirth, "{0:yyyy-MM-dd}", new { @readonly = "readonly", @class = "form-control", @type = "date", @value = Model.DateOfBirth })
+            </div>
+
+
+
+        </div>
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <h4 class="text-info">Kontakt informacije</h4>
+            </div>
+        </div>
+        <div class="row">
+
+
+            <div class="col-lg-offset-2 col-md-6">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" type="email" class="form-control" value="@Model.Email" />
+                @*<span asp-validation-for="Email" class="text-danger"></span> moze bit isto samo format email-a mora bit dobar*@
+            </div>
+
+            <div class="col-lg-offset-2 col-md-6">
+                <label asp-for="PhoneNummber">Broj telefona</label>
+                <input asp-for="PhoneNummber" class="form-control" value="@Model.PhoneNummber" />
+                @*<span asp-validation-for="PhoneNummber" class="text-danger"></span> moze bit isto samo format mora bit dobar*@
+            </div>
+
+            <div class="col-lg-offset-2 col-md-4">
+                <label asp-for="Address">Adresa</label>
+                <input asp-for="Address" class="form-control" value="@Model.Address" />
+                @*<span asp-validation-for="Address" class="text-danger"></span> isto kao gore samo foramat  moze bit kako god*@
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="Citys">Grad</label>
+                <select asp-for="CityId" asp-items="@Model.Citys" class="form-control">
+                    <option value="@Model.CityId" selected></option>
+                </select>
+            </div>
+        </div>
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <h4 class="text-info">Informacije o korisnickom racunu</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label asp-for="Password">Lozinka</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col-lg-offset-2 col-md-3">
+                <label asp-for="StudentTypes">Tip studenta</label>
+                <select asp-for="StudentTypeId" asp-items="@Model.StudentTypes" class="form-control">
+                    <option value="@Model.StudentTypeId" selected></option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-offset-5">
+                    <button type="submit" class="btn btn-default"> Prijavi se</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</form>

@@ -1,0 +1,175 @@
+﻿@model TeacherRegistrationVM
+@{
+    ViewData["Title"] = "TeacherRegistration";
+}
+
+<h2>TeacherRegistration</h2>
+
+<form asp-action="SaveTeacherRegistration" method="post" enctype="multipart/form-data">
+    <div class="container">
+
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <h4 class="text-info">Informacije o korisniku</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="FName">Ime</label>
+                <input asp-for="FName" class="form-control" />
+                <span asp-validation-for="FName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="LName">Prezime</label>
+                <input asp-for="LName" class="form-control" />
+                <span asp-validation-for="LName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="Gender">Spol</label>
+                <select asp-for="GenderId" asp-items="@Model.Gender" class="form-control">
+                    <option>Odaberite spol</option>
+                </select>
+                <span asp-validation-for="GenderId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DateOfBirth">Datum rodjenja</label>
+                <input asp-for="DateOfBirth" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="CollageName">Ime fakulteta</label>
+                <input asp-for="CollageName" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="TitleId">Tip tutora</label>
+                <select asp-for="TitleId" asp-items="@Model.Titles" class="form-control"></select>
+            </div>
+
+
+            <div class="col-md-offset-2 col-md-3">
+                <label asp-for="ProfilePicture">Upload korisnicke slike</label>
+                <input asp-for="ProfilePicture" type="file" class="form-control" />
+            </div>
+
+
+        </div>
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <h4 class="text-info">Kontakt informacije</h4>
+            </div>
+        </div>
+        <div class="row">
+
+
+            <div class="col-lg-offset-2 col-md-6">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" type="email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-lg-offset-2 col-md-6">
+                <label asp-for="PhoneNummber">Broj telefona</label>
+                <input asp-for="PhoneNummber" class="form-control" />
+                <span asp-validation-for="PhoneNummber" class="text-danger"></span>
+            </div>
+
+            <div class="col-lg-offset-2 col-md-4">
+                <label asp-for="Address">Adresa</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="Citys">Grad</label>
+                <select asp-for="CityId" asp-items="@Model.Citys" class="form-control"></select>
+            </div>
+        </div>
+
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <h4 class="text-info">Informacije o korisnickom racunu</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-2 col-md-3">
+                <label asp-for="Username">Korisnicko ime</label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Password">Lozinka</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="col-lg-offset-2 col-md-3">
+                <label>Odaberite tip studenta</label>
+                <ul>
+                    @for (int i = 0; i < Model.typeOfStudents.Count; i++)
+                    {
+                        <li>
+                            <input type="checkbox" asp-for="@Model.typeOfStudents[i].Checked" />
+                            <label asp-for="@Model.typeOfStudents[i].Checked">@Model.typeOfStudents[i].Type</label>
+                            <input type="hidden" asp-for="@Model.typeOfStudents[i].StudentTypeId" />
+                            <input type="hidden" asp-for="@Model.typeOfStudents[i].Type" />
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="SubjectId">Predmet</label>
+                <select asp-for="SubjectId" asp-items="@Model.Subjects" class="form-control">
+                    <option>Odaberite predmet</option>
+                </select>
+                <span asp-validation-for="SubjectId" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-2 col-md-3">
+                <label asp-for="Price">Cijena casa(KM)</label>
+                <input asp-for="Price" type="number" step="0.5" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+
+
+            <div class=" col-md-3">
+                <label asp-for="Proof">Upload korisnicke slike</label>
+                <input asp-for="Proof" type="file" class="form-control" multiple />
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-offset-5">
+                    <button type="submit" class="btn btn-default"> Prijavi se</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</form>
+
+
+
+
+
