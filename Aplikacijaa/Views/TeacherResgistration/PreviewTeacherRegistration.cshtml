@@ -95,4 +95,7 @@
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
+
+    <a asp-action="AcceptRegistration" asp-route-id="@Model.Id" class="btn btn-danger">Prihavati</a>
+    <a asp-action="DeclineRegistration" asp-route-id="@Model.Id" class="btn btn-danger">Odbij</a>
 </div>

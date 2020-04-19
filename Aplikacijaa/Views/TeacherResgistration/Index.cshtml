@@ -14,7 +14,7 @@
             <td>Grad</td>
             <td>Titula</td>
             <td>Predmet</td>
-            @*<td>Akcije</td>*@
+            <td>Akcije</td>
 
         </tr>
     </thead>
@@ -29,6 +29,7 @@
                 <td>@item.City</td>
                 <td>@item.Title</td>
                 <td>@item.Subject</td>
+                <td><a asp-action="PreviewTeacherRegistration" asp-route-id="@item.TeacherId" class="btn btn-danger">Pregledaj prijavu</a></td>
 
         </tr>
     }

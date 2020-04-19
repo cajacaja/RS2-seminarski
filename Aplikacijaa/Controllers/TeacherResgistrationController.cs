@@ -29,7 +29,7 @@ namespace Aplikacijaa.Controllers
         public IActionResult Index()
         {
             var ListOfTeacherRegistration = new List<TutorRegistrationForm>();
-            ListOfTeacherRegistration = db.TutorRegistrationForm.ToList();
+            ListOfTeacherRegistration = db.TutorRegistrationForm.Where(x=>x.IsRead==false).ToList();
             var TeacherRegistrationVM = new List<ListOfTeachersVM>();
             if (ListOfTeacherRegistration != null) 
             {
